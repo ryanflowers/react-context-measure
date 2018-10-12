@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="6e95febe-048c-4704-bf6d-c3c81de46a2d" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/src/testContextComponent.js" afterPath="$PROJECT_DIR$/src/testContextComponent.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -41,8 +42,8 @@
       <file leaf-file-name="testContextComponent.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/testContextComponent.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="21" column="3" lean-forward="true" selection-start-line="21" selection-start-column="3" selection-end-line="21" selection-end-column="3" />
+            <state relative-caret-position="617">
+              <caret line="65" column="12" lean-forward="false" selection-start-line="65" selection-start-column="12" selection-end-line="65" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -208,7 +209,7 @@
       <option name="presentableId" value="Default" />
       <updated>1539274018955</updated>
       <workItem from="1539274021234" duration="6102000" />
-      <workItem from="1539286997306" duration="9267000" />
+      <workItem from="1539286997306" duration="9298000" />
     </task>
     <task id="LOCAL-00001" summary="-">
       <created>1539302909502</created>
@@ -217,11 +218,18 @@
       <option name="project" value="LOCAL" />
       <updated>1539302909502</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="-">
+      <created>1539302962673</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1539302962673</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15369000" />
+    <option name="totallyTimeSpent" value="15400000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="3440" height="1440" extended-state="0" />
@@ -388,8 +396,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/testContextComponent.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="21" column="3" lean-forward="true" selection-start-line="21" selection-start-column="3" selection-end-line="21" selection-end-column="3" />
+        <state relative-caret-position="617">
+          <caret line="65" column="12" lean-forward="false" selection-start-line="65" selection-start-column="12" selection-end-line="65" selection-end-column="12" />
           <folding />
         </state>
       </provider>

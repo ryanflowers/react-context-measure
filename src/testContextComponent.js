@@ -64,10 +64,6 @@ export class TestContextComponent extends PureComponent {
   }
 
   render() {
-
-    console.log("this.props.nestNodeCount = " + this.props.nestNodeCount);
-    console.log("this.props.useContext = " + this.props.useContext);
-
     return (
          this.props.useContext ?
             <Provider value={this.props.nestNodeCount}>
