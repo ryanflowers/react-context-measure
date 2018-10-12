@@ -5,12 +5,17 @@ class App extends Component {
 
   constructor() {
     super();
-    this.state = { renderCount: 0, inputNestNodeCount: 0, nestNodeCount: 0, inputUseContext: false, useContext: false, result: 0 };
+    const defaultNodeCount = 1000;
+    this.startTime = 0;
+    this.state = { renderCount: 0, inputNestNodeCount: defaultNodeCount, nestNodeCount: defaultNodeCount, inputUseContext: false, useContext: false, result: 0, forceRenderCount: 0 };
   }
 
   onClick = () => {
-    // TODO add perf marker start
-    this.setState({ renderCount: this.state.renderCount + 1, nestNodeCount: this.state.inputNestNodeCount, useContext: this.state.inputUseContext });
+    if(this.state.inputNestNodeCount <= 10000) {
+      this.setState({ renderCount: this.state.renderCount + 1, nestNodeCount: this.state.inputNestNodeCount, useContext: this.state.inputUseContext, forceRenderCount: this.state.forceRenderCount + 1 });
+    } else{
+      alert("Too many nodes browser will puke. Keep it under 10000")
+    }
   }
 
   onNestNodeCountChange = (event) => {
@@ -22,11 +27,17 @@ class App extends Component {
   }
 
   rendered = () => {
-    // TODO add perf marker measure and set to result
-    console.log("render complete");
+    const endTime = Date.now();
+    const result = endTime - this.startTime;
+    console.log("Result: Run " + this.state.forceRenderCount + ", Time(ms) " + result + ", Using react context:" + this.state.useContext);
+    this.setState({ result });
   }
 
   render() {
+
+    // TODO add perf marker starts
+    this.startTime = Date.now();
+
     return (
       <div className="App">
         <label>Nest node count:</label>
@@ -43,16 +54,17 @@ class App extends Component {
         <br/>
         <br/>
         <button onClick={this.onClick}>Rerender!</button>
-        <TestContextComponent
-            rendered={this.rendered}
-            nestNodeCount={this.state.nestNodeCount}
-            useContext={this.state.useContext}>
-        </TestContextComponent>
         <br/>
         <br/>
         <div>
-          {this.state.result} ms
+          Render time {this.state.result} ms
         </div>
+        <TestContextComponent
+            rendered={this.rendered}
+            nestNodeCount={this.state.nestNodeCount}
+            forceRenderCount={this.state.forceRenderCount}
+            useContext={this.state.useContext}>
+        </TestContextComponent>
       </div>
     );
   }
