@@ -2,11 +2,6 @@ import React, { PureComponent, Component } from 'react';
 
 const {Provider, Consumer} = React.createContext("test");
 
-const divStyle = {
-  border: '2px solid black',
-  margin: '2px'
-};
-
 class TextContextInnerComponent extends Component {
 
   componentDidMount() {
@@ -18,7 +13,7 @@ class TextContextInnerComponent extends Component {
   }
 
   render() {
-    return (<div>{ "Inner most leaf" }</div>)
+    return null
   }
 }
 
@@ -29,7 +24,7 @@ export class TestContextComponent extends PureComponent {
   }
 
   renderNode = (children) => {
-    const innerNode = <div style={divStyle}>{ children }</div>;
+    const innerNode = <div>{ children }</div>;
     return this.props.useContext ? <Consumer>{ () => innerNode }</Consumer> : innerNode;
   }
 

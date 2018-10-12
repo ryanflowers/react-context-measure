@@ -28,11 +28,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="App.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="619">
-              <caret line="58" column="29" lean-forward="false" selection-start-line="58" selection-start-column="9" selection-end-line="58" selection-end-column="29" />
+            <state relative-caret-position="632">
+              <caret line="56" column="13" lean-forward="true" selection-start-line="43" selection-start-column="8" selection-end-line="56" selection-end-column="13" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -40,11 +40,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="testContextComponent.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="testContextComponent.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/testContextComponent.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="28" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+            <state relative-caret-position="390">
+              <caret line="26" column="26" lean-forward="false" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -86,6 +86,8 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
+      <find>renderCount</find>
+      <find>forceRenderCount</find>
       <find>nestNodeCount</find>
     </findStrings>
   </component>
@@ -97,8 +99,8 @@
       <list>
         <option value="$PROJECT_DIR$/src/testContext.js" />
         <option value="$PROJECT_DIR$/src/testWithContext.js" />
-        <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/src/testContextComponent.js" />
+        <option value="$PROJECT_DIR$/src/App.js" />
       </list>
     </option>
   </component>
@@ -215,7 +217,7 @@
       <option name="presentableId" value="Default" />
       <updated>1539274018955</updated>
       <workItem from="1539274021234" duration="6102000" />
-      <workItem from="1539286997306" duration="10034000" />
+      <workItem from="1539286997306" duration="11018000" />
     </task>
     <task id="LOCAL-00001" summary="-">
       <created>1539302909502</created>
@@ -245,11 +247,18 @@
       <option name="project" value="LOCAL" />
       <updated>1539303442498</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="-">
+      <created>1539303741299</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1539303741299</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16136000" />
+    <option name="totallyTimeSpent" value="17120000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="3440" height="1440" extended-state="0" />
@@ -404,21 +413,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.js">
+    <entry file="file://$PROJECT_DIR$/src/testContextComponent.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="619">
-          <caret line="58" column="29" lean-forward="false" selection-start-line="58" selection-start-column="9" selection-end-line="58" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="390">
+          <caret line="26" column="26" lean-forward="false" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/testContextComponent.js">
+    <entry file="file://$PROJECT_DIR$/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="28" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="632">
+          <caret line="56" column="13" lean-forward="true" selection-start-line="43" selection-start-column="8" selection-end-line="56" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

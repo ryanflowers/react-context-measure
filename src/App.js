@@ -6,13 +6,14 @@ class App extends Component {
   constructor() {
     super();
     const defaultNodeCount = 1000;
+    this.log = [];
     this.startTime = 0;
-    this.state = { renderCount: 0, inputNestNodeCount: defaultNodeCount, nestNodeCount: defaultNodeCount, inputUseContext: false, useContext: false, result: 0, forceRenderCount: 0 };
+    this.state = { renderCount: 0, inputNestNodeCount: defaultNodeCount, nestNodeCount: defaultNodeCount, inputUseContext: false, useContext: false, result: [] };
   }
 
   onClick = () => {
     if(this.state.inputNestNodeCount <= 10000) {
-      this.setState({ renderCount: this.state.renderCount + 1, nestNodeCount: this.state.inputNestNodeCount, useContext: this.state.inputUseContext, forceRenderCount: this.state.forceRenderCount + 1 });
+      this.setState({ renderCount: this.state.renderCount + 1, nestNodeCount: this.state.inputNestNodeCount, useContext: this.state.inputUseContext });
     } else{
       alert("Too many nodes browser will puke. Keep it under 10000")
     }
@@ -29,8 +30,8 @@ class App extends Component {
   rendered = () => {
     const endTime = Date.now();
     const result = endTime - this.startTime;
-    console.log("Result: Run " + this.state.forceRenderCount + ", Time(ms) " + result + ", Using react context:" + this.state.useContext);
-    this.setState({ result });
+    this.log.push("Run " + this.state.renderCount + ", Render time(ms) " + result + ", Using react context:" + this.state.useContext);
+    this.setState({ result: this.log });
   }
 
   render() {
@@ -54,12 +55,12 @@ class App extends Component {
         <button onClick={this.onClick}>Rerender!</button>
         <br/>
         <div>
-          Render time {this.state.result} ms
+          {this.state.result.map((item) => (<div>{item}</div>))}
         </div>
         <TestContextComponent
             rendered={this.rendered}
             nestNodeCount={this.state.nestNodeCount}
-            forceRenderCount={this.state.forceRenderCount}
+            forceRenderCount={this.state.renderCount}
             useContext={this.state.useContext}>
         </TestContextComponent>
       </div>
