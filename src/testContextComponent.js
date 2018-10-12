@@ -18,7 +18,7 @@ class TextContextInnerComponent extends Component {
   }
 
   render() {
-    return (<div>{ "Inner most leaf - " + this.props.value }</div>)
+    return (<div>{ "Inner most leaf" }</div>)
   }
 }
 
@@ -35,41 +35,37 @@ export class TestContextComponent extends PureComponent {
     return this.props.useContext ? <Consumer>{ () => innerNode }</Consumer> : innerNode;
   }
 
-  renderIterations = () => {
-    let result;
+  render() {
 
-    if(this.props.useContext) {
-      if(this.memoizedWithContext) {
+    const renderIterations = () => {
+      let nodes = <TextContextInnerComponent rendered={this.props.rendered}/>;
+      for(var i = 0; i < this.props.nestNodeCount; i++) {
+        nodes = this.renderNode(nodes);
+      }
+      return nodes;
+    };
+
+    let result;
+    if (this.props.useContext) {
+      if (this.memoizedWithContext) {
         result = this.memoizedWithContext;
       } else {
-        let nodes = <TextContextInnerComponent rendered={this.props.rendered}/>;
-        for(var i = 0; i < this.props.nestNodeCount; i++) {
-          nodes = this.renderNode(nodes);
-        }
-        result = nodes;
+        result = renderIterations();
       }
     } else{
-      if(this.memoizedWithoutContext) {
+      if (this.memoizedWithoutContext) {
         result = this.memoizedWithoutContext;
       } else {
-        let nodes = <TextContextInnerComponent rendered={this.props.rendered}/>;
-        for(var i = 0; i < this.props.nestNodeCount; i++) {
-          nodes = this.renderNode(nodes);
-        }
-        result = nodes;
+        result = renderIterations();
       }
     }
 
-    return result;
-  }
-
-  render() {
     return (
          this.props.useContext ?
             <Provider value={this.props.nestNodeCount}>
-              {this.renderIterations()}
+              {result}
             </Provider> :
-             this.renderIterations()
+             result
     );
   }
 }
