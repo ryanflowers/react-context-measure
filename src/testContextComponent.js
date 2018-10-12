@@ -26,8 +26,6 @@ export class TestContextComponent extends PureComponent {
 
   constructor() {
     super();
-    this.memoizedWithContext = null;
-    this.memoizedWithoutContext = null;
   }
 
   renderNode = (children) => {
@@ -45,27 +43,12 @@ export class TestContextComponent extends PureComponent {
       return nodes;
     };
 
-    let result;
-    if (this.props.useContext) {
-      if (this.memoizedWithContext) {
-        result = this.memoizedWithContext;
-      } else {
-        result = renderIterations();
-      }
-    } else{
-      if (this.memoizedWithoutContext) {
-        result = this.memoizedWithoutContext;
-      } else {
-        result = renderIterations();
-      }
-    }
-
     return (
          this.props.useContext ?
             <Provider value={this.props.nestNodeCount}>
-              {result}
+              {renderIterations()}
             </Provider> :
-             result
+             renderIterations()
     );
   }
 }

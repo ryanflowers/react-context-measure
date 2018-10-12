@@ -43,7 +43,6 @@ class App extends Component {
         <label>Nest node count:</label>
         <input type="text" value={this.state.inputNestNodeCount} onChange={this.onNestNodeCountChange} />
         <br/>
-        <br/>
         <label>Use react context:</label>
         <div>
           <label>True:</label>
@@ -52,9 +51,7 @@ class App extends Component {
           <input type="radio" checked={this.state.inputUseContext === false} value="false" onChange={this.onUseContextChange} />
         </div>
         <br/>
-        <br/>
         <button onClick={this.onClick}>Rerender!</button>
-        <br/>
         <br/>
         <div>
           Render time {this.state.result} ms
