@@ -1,11 +1,39 @@
 import React, { Component } from 'react';
 import {TestContextComponent} from "./testContextComponent";
 
+/**
+ * Teams DOM
+ * Max depth of deepest branch 63 nodes
+ * Total node count 7689
+ * Top 20 widest levels
+ * 0: 59
+ *1: 59
+ *2: 59
+ *3: 33
+ *4: 32
+ *5: 28
+ *6: 9
+ *7: 8
+ *8: 7
+ *9: 7
+ *10: 6
+ *11: 5
+ *12: 5
+ *13: 5
+ *14: 4
+ *15: 4
+ *16: 4
+ *17: 4
+ *18: 4
+ *19: 4
+ */
+
+
 class App extends Component {
 
   constructor() {
     super();
-    const defaultNodeCount = 1000;
+    const defaultNodeCount = 2;
     this.log = [];
     this.startTime = 0;
     this.state = { renderCount: 0, inputNestNodeCount: defaultNodeCount, nestNodeCount: defaultNodeCount, inputUseContext: false, useContext: false, result: [] };

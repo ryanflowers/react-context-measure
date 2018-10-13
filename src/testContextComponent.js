@@ -23,17 +23,24 @@ export class TestContextComponent extends PureComponent {
     super();
   }
 
-  renderNode = (children) => {
-    const innerNode = <div>{ children }</div>;
-    return this.props.useContext ? <Consumer>{ () => innerNode }</Consumer> : innerNode;
+  renderNode = (innerNode, useContext, wrapperCount) => {
+
+    if(useContext) {
+      if(wrapperCount === 0) {
+        return innerNode;
+      }
+      return this.renderNode(<Consumer>{ () => innerNode }</Consumer>, useContext, wrapperCount - 1);
+    } else{
+      return innerNode;
+    }
   }
 
   render() {
 
-    const renderIterations = () => {
+    const renderNestedNodes = () => {
       let nodes = <TextContextInnerComponent rendered={this.props.rendered}/>;
       for(var i = 0; i < this.props.nestNodeCount; i++) {
-        nodes = this.renderNode(nodes);
+        nodes = this.renderNode(<div>{ nodes }</div>, this.props.useContext, this.props.useContext ? 4 : 0);
       }
       return nodes;
     };
@@ -41,9 +48,9 @@ export class TestContextComponent extends PureComponent {
     return (
          this.props.useContext ?
             <Provider value={this.props.nestNodeCount}>
-              {renderIterations()}
+              {renderNestedNodes()}
             </Provider> :
-             renderIterations()
+             renderNestedNodes()
     );
   }
 }
