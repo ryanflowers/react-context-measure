@@ -19,10 +19,6 @@ class TextContextInnerComponent extends Component {
 
 export class TestContextComponent extends PureComponent {
 
-  constructor() {
-    super();
-  }
-
   renderNode = (innerNode, useContext, wrapperCount) => {
 
     if(useContext) {
@@ -38,16 +34,31 @@ export class TestContextComponent extends PureComponent {
   render() {
 
     const renderNestedNodes = () => {
+
       let nodes = <TextContextInnerComponent rendered={this.props.rendered}/>;
-      for(var i = 0; i < this.props.nestNodeCount; i++) {
-        nodes = this.renderNode(<div>{ nodes }</div>, this.props.useContext, this.props.useContext ? 4 : 0);
+      const wrapperCount = 4;
+      let nodeCount = 0;
+
+      for(var level = 0; level < this.props.nestNodeDepth; level++) {
+        nodes = this.renderNode(<div>{nodes}</div>, this.props.useContext, this.props.useContext ? wrapperCount : 0);
+
+        if(nodeCount < 6) { // Match ~7K nodes same as teams.com
+          nodes = <div>
+            {nodes}
+            {nodes}
+            {nodes}
+            {nodes}
+          </div>
+          nodeCount++;
+        }
       }
+
       return nodes;
     };
 
     return (
          this.props.useContext ?
-            <Provider value={this.props.nestNodeCount}>
+            <Provider value={this.props.nestNodeDepth}>
               {renderNestedNodes()}
             </Provider> :
              renderNestedNodes()

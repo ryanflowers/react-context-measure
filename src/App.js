@@ -2,9 +2,26 @@ import React, { Component } from 'react';
 import {TestContextComponent} from "./testContextComponent";
 
 /**
+ * Machine specs??
+ *
+ * 10 runs per suite
+ *
+ * With 4 context wrappers
+ * Depths per run
+ * 100 -
+ * 1000 -
+ * 3000 -
+ *
+ * Without context wrappers
+ * Depths per run
+ * 100 -
+ * 1000 -
+ * 3000 -
+ *
  * Teams DOM
- * Max depth of deepest branch 63 nodes
+ * Max tree depth 63 nodes
  * Total node count 7689
+ * 500 levels are 3 nodes wide
  * Top 20 widest levels
  * 0: 59
  *1: 59
@@ -28,49 +45,86 @@ import {TestContextComponent} from "./testContextComponent";
  *19: 4
  */
 
+/**
+ * Number of nodes on the page
+ * document.getElementsByTagName('*').length
+ *
+ * Deepest branch
+ * var el = $("html");
+ * var i = 0;
+ *
+ * while ((el = el.children()).length) {
+ *   i++;
+ * }
+ */
+
 
 class App extends Component {
 
   constructor() {
     super();
-    const defaultNodeCount = 2;
+    this.runCount = 1;
+    const defaultNestedNodeDepth = 100
+    this.defaultUseContext = true;
+    this.runResults = [];
     this.log = [];
     this.startTime = 0;
-    this.state = { renderCount: 0, inputNestNodeCount: defaultNodeCount, nestNodeCount: defaultNodeCount, inputUseContext: false, useContext: false, result: [] };
+    this.state = {
+      renderCount: 0,
+      inputNestNodeDepth: defaultNestedNodeDepth,
+      nestNodeDepth: defaultNestedNodeDepth,
+      inputUseContext: this.defaultUseContext,
+      useContext: this.defaultUseContext,
+      result: [] };
   }
 
-  onClick = () => {
-    if(this.state.inputNestNodeCount <= 10000) {
-      this.setState({ renderCount: this.state.renderCount + 1, nestNodeCount: this.state.inputNestNodeCount, useContext: this.state.inputUseContext });
-    } else{
-      alert("Too many nodes browser will puke. Keep it under 10000")
-    }
-  }
+  // onClick = () => {
+  //   if(this.state.inputNestNodeDepth <= 10000) {
+  //     this.setState({ renderCount: this.state.renderCount + 1, nestNodeDepth: this.state.inputNestNodeDepth, useContext: this.state.inputUseContext });
+  //   } else{
+  //     alert("Too many nodes browser will puke. Keep it under 10000")
+  //   }
+  // }
 
   onNestNodeCountChange = (event) => {
-    this.setState({ inputNestNodeCount: event.target.value });
+    //this.setState({ inputNestNodeDepth: event.target.value });
   }
 
   onUseContextChange = (event) => {
-    this.setState({ inputUseContext: event.target.value === "true" ? true : false });
+    //this.setState({ inputUseContext: event.target.value === "true" ? true : false });
   }
 
   rendered = () => {
     const endTime = Date.now();
     const result = endTime - this.startTime;
-    this.log.push("Run " + this.state.renderCount + ", Render time(ms) " + result + ", Using react context:" + this.state.useContext);
-    this.setState({ result: this.log });
+    //this.log.push("Run " + this.state.renderCount + ", Render time(ms) " + result + ", Using react context:" + this.state.useContext);
+    this.runResults.push(result);
+
+    if(this.runCount !== 0) {
+      this.runCount--;
+      this.setState({
+        renderCount: this.state.renderCount + 1,
+        nestNodeDepth: this.state.inputNestNodeDepth,
+        nestedLevelWidth: this.state.nestedLevelWidth,
+        useContext: this.state.inputUseContext
+      });
+    } else {
+      const total = this.runResults.reduce((prev, current) => {
+        return prev + current;
+      })
+      this.setState({ result: total/this.runResults.length })
+    }
+    //this.setState({ result: this.log });
   }
 
   render() {
 
-    // TODO add perf marker starts
     this.startTime = Date.now();
 
     return (
       <div className="App">
         <label>Nest node count:</label>
-        <input type="text" value={this.state.inputNestNodeCount} onChange={this.onNestNodeCountChange} />
+        <input type="text" value={this.state.inputNestNodeDepth} onChange={this.onNestNodeCountChange} />
         <br/>
         <label>Use react context:</label>
         <div>
@@ -80,14 +134,15 @@ class App extends Component {
           <input type="radio" checked={this.state.inputUseContext === false} value="false" onChange={this.onUseContextChange} />
         </div>
         <br/>
-        <button onClick={this.onClick}>Rerender!</button>
+        {/*<button onClick={this.onClick}>Rerender!</button>*/}
         <br/>
         <div>
-          {this.state.result.map((item) => (<div>{item}</div>))}
+          {/*{this.state.result.map((item) => (<div>{item}</div>))}*/}
+          { "Average Run:" + this.state.result}
         </div>
         <TestContextComponent
             rendered={this.rendered}
-            nestNodeCount={this.state.nestNodeCount}
+            nestNodeDepth={this.state.nestNodeDepth}
             forceRenderCount={this.state.renderCount}
             useContext={this.state.useContext}>
         </TestContextComponent>
