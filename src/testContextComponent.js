@@ -1,15 +1,19 @@
-import React, { PureComponent, Component } from 'react';
+import React, {Component, PureComponent} from 'react';
 
 const {Provider, Consumer} = React.createContext("test");
+
+let renders = 0;
 
 class TextContextInnerComponent extends Component {
 
   componentDidMount() {
-    this.props.rendered();
+    renders++;
+    console.log("leaf render number" + renders);
   }
 
   componentDidUpdate() {
-    this.props.rendered();
+    renders++;
+    console.log("leaf render number" + renders);
   }
 
   render() {
@@ -35,21 +39,21 @@ export class TestContextComponent extends PureComponent {
 
     const renderNestedNodes = () => {
 
-      let nodes = <TextContextInnerComponent rendered={this.props.rendered}/>;
+      let nodes = <TextContextInnerComponent forceRenderCount={this.props.forceRenderCount}></TextContextInnerComponent>;
       const wrapperCount = 4;
-      let nodeCount = 0;
+      let nodeCount = 7;
 
       for(var level = 0; level < this.props.nestNodeDepth; level++) {
         nodes = this.renderNode(<div>{nodes}</div>, this.props.useContext, this.props.useContext ? wrapperCount : 0);
 
-        if(nodeCount < 6) { // Match ~7K nodes same as teams.com
+        if(nodeCount > 0) { // 6 levels with a branching factor of 4
           nodes = <div>
             {nodes}
             {nodes}
             {nodes}
             {nodes}
           </div>
-          nodeCount++;
+          nodeCount--;
         }
       }
 
