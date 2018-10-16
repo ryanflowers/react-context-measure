@@ -2,18 +2,18 @@ import React, {Component, PureComponent} from 'react';
 
 const {Provider, Consumer} = React.createContext("test");
 
-let renders = 0;
+let mounts = 0;
 
-class TextContextInnerComponent extends Component {
+class DummyLeafComponent extends Component {
 
   componentDidMount() {
-    renders++;
-    console.log("leaf render number" + renders);
+    mounts++;
+    console.log("leaf render number" + mounts);
   }
 
   componentDidUpdate() {
-    renders++;
-    console.log("leaf render number" + renders);
+    mounts++;
+    console.log("leaf render number" + mounts);
   }
 
   render() {
@@ -23,13 +23,13 @@ class TextContextInnerComponent extends Component {
 
 export class TestContextComponent extends PureComponent {
 
-  renderNode = (innerNode, useContext, wrapperCount) => {
+  wrapNode = (innerNode, useContext, wrapperCount) => {
 
     if(useContext) {
       if(wrapperCount === 0) {
         return innerNode;
       }
-      return this.renderNode(<Consumer>{ () => innerNode }</Consumer>, useContext, wrapperCount - 1);
+      return this.wrapNode(<Consumer>{ () => innerNode }</Consumer>, useContext, wrapperCount - 1);
     } else{
       return innerNode;
     }
@@ -39,21 +39,21 @@ export class TestContextComponent extends PureComponent {
 
     const renderNestedNodes = () => {
 
-      let nodes = <TextContextInnerComponent forceRenderCount={this.props.forceRenderCount}></TextContextInnerComponent>;
+      let nodes = <DummyLeafComponent forceRenderCount={this.props.forceRenderCount}></DummyLeafComponent>;
       const wrapperCount = 4;
-      let nodeCount = 7;
+      let levelsLeftToBranch = 7;
 
       for(var level = 0; level < this.props.nestNodeDepth; level++) {
-        nodes = this.renderNode(<div>{nodes}</div>, this.props.useContext, this.props.useContext ? wrapperCount : 0);
+        nodes = this.wrapNode(<div>{nodes}</div>, this.props.useContext, this.props.useContext ? wrapperCount : 0);
 
-        if(nodeCount > 0) { // 6 levels with a branching factor of 4
+        if(levelsLeftToBranch > 0) { // Level with a branching factor of 4
           nodes = <div>
             {nodes}
             {nodes}
             {nodes}
             {nodes}
           </div>
-          nodeCount--;
+          levelsLeftToBranch--;
         }
       }
 

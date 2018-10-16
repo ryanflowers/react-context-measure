@@ -6,13 +6,16 @@ class App extends Component {
   constructor() {
     super();
 
+    // Determines the number of test runs that will be executed on render of the page
     this.runCount = 50;
+
+    // Determines the depth of the DOM tree. The tree will be completely full
     const defaultNestedNodeDepth = 100;
+
+    // Determines the strategy to test either to use the react context wrapper on each node in the tree or not
     this.defaultUseContext = true;
 
-
     this.runResults = [];
-    this.log = [];
     this.startTime = 0;
     this.runsReported = false;
     this.state = {
@@ -54,6 +57,7 @@ class App extends Component {
     const result = endTime - this.startTime;
     this.runResults.push(result);
 
+    // While we have runs left to execute keep rerendering
     if(this.runCount > 0) {
       this.setState({
         renderCount: this.state.renderCount + 1,
@@ -63,6 +67,8 @@ class App extends Component {
       });
       console.log(this.runCount);
     } else {
+
+      // Only report once
       if(!this.runsReported) {
         this.runResults.map(result => console.log(result));
         const total = this.runResults.reduce((prev, current) => {
